@@ -3,6 +3,7 @@ from django.contrib import admin
 from products.admin import BasketAdmin
 from users.models import EmailVerification, User
 
+
 # Register your models here.
 
 @admin.register(User)
@@ -14,5 +15,5 @@ class UserAdmin(admin.ModelAdmin):
 @admin.register(EmailVerification)
 class EmailVerificationAdmin(admin.ModelAdmin):
     list_display = ('code', 'user', 'expiration')
-    field = ('code','user','created')
+    field = ('code', 'user', 'created')
     readonly_fields = ('created',)
