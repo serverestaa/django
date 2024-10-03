@@ -51,6 +51,12 @@ class OrderCreateView(TitleMixin, CreateView):
         return super(OrderCreateView, self).form_valid(form)
 
 
+def fulfill_order(session):
+    order_id = int(session.metadata.order_id)
+    order = Order.objects.get(id=order_id)
+    order.update_after_payment()
+
+
 @csrf_exempt
 def stripe_webhook_view(request):
     payload = request.body
@@ -71,15 +77,9 @@ def stripe_webhook_view(request):
     # Handle the checkout.session.completed event
     if event['type'] == 'checkout.session.completed':
         session = event['data']['object']
-
         # Fulfill the purchase...
         fulfill_order(session)
 
     # Passed signature verification
     return HttpResponse(status=200)
 
-
-def fulfill_order(session):
-    order_id = int(session.metadata.order_id)
-    order = Order.objects.get(id=order_id)
-    order.update_after_payment()
