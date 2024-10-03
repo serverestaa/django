@@ -1,0 +1,6 @@
+.idea
+db.sqlite3
+media
+.env
+dump.rdb
+imagesproject
