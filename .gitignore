@@ -2,5 +2,6 @@
 db.sqlite3
 media
 .env
-dump.rdb
+.dump.rdb
 imagesproject
+.DS_Store
