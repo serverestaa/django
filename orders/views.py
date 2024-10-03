@@ -14,6 +14,7 @@ from common.views import TitleMixin
 from orders.forms import OrderForm
 from orders.models import Order
 from products.models import Basket
+
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
@@ -48,6 +49,7 @@ class OrderCreateView(TitleMixin, CreateView):
     def form_valid(self, form):
         form.instance.initiator = self.request.user
         return super(OrderCreateView, self).form_valid(form)
+
 
 @csrf_exempt
 def stripe_webhook_view(request):
